@@ -107,7 +107,8 @@ export default function App() {
 
       <footer className="colophon">
         Chronological order follows Marvel’s public timeline. Unreleased titles
-        stay on the spine and can’t be checked off.
+        stay on the spine and can’t be checked off. Series posters are from
+        TVMaze; film and special posters are from Wikipedia.
       </footer>
     </>
   )

@@ -1,4 +1,5 @@
 import type { CatalogEntry, Kind, Phase } from '../types'
+import { posters } from './posters'
 
 type Row = {
   id: string
@@ -620,4 +621,5 @@ export const catalog: CatalogEntry[] = rows.map((row, index) => ({
   ...row,
   chronoOrder: index + 1,
   saga: row.phase <= 3 ? 'infinity' : 'multiverse',
+  poster: posters[row.id],
 }))
