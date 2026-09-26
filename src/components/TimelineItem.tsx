@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { CatalogEntry } from '../types'
 import { KIND_LABEL, releaseYear } from '../types'
 
@@ -15,6 +16,8 @@ export function TimelineItem({
   onToggle,
 }: TimelineItemProps) {
   const locked = entry.upcoming || pending
+  const [posterFailed, setPosterFailed] = useState(false)
+  const showPoster = Boolean(entry.poster) && !posterFailed
 
   return (
     <li className={pending ? 'entry is-leaving' : 'entry'}>
@@ -26,32 +29,50 @@ export function TimelineItem({
           data-upcoming={entry.upcoming ? 'true' : 'false'}
         >
           <span className="node" data-phase={entry.phase} aria-hidden="true" />
-          <label className="watch">
-            <input
-              type="checkbox"
-              checked={checked}
-              disabled={locked}
-              onChange={() => onToggle(entry.id)}
+          {showPoster ? (
+            <img
+              className="poster"
+              src={entry.poster}
+              alt=""
+              width={76}
+              height={114}
+              loading="lazy"
+              decoding="async"
+              onError={() => setPosterFailed(true)}
             />
-            <span>
-              Watched
-              <span className="sr-only"> {entry.title}</span>
+          ) : (
+            <span className="poster poster-fallback" aria-hidden="true">
+              {KIND_LABEL[entry.kind]}
             </span>
-          </label>
-          <div className="card-body">
-            <div className="card-heading">
-              <h3>{entry.title}</h3>
-              <div className="badges">
-                {entry.multiverse && <span className="badge">Multiverse</span>}
-                {entry.upcoming && <span className="badge badge-upcoming">Upcoming</span>}
+          )}
+          <div className="card-main">
+            <label className="watch">
+              <input
+                type="checkbox"
+                checked={checked}
+                disabled={locked}
+                onChange={() => onToggle(entry.id)}
+              />
+              <span>
+                Watched
+                <span className="sr-only"> {entry.title}</span>
+              </span>
+            </label>
+            <div className="card-body">
+              <div className="card-heading">
+                <h3>{entry.title}</h3>
+                <div className="badges">
+                  {entry.multiverse && <span className="badge">Multiverse</span>}
+                  {entry.upcoming && <span className="badge badge-upcoming">Upcoming</span>}
+                </div>
               </div>
+              <p className="meta">
+                <span>{KIND_LABEL[entry.kind]}</span>
+                <span>Phase {entry.phase}</span>
+                <span>{releaseYear(entry.releaseDate)}</span>
+                <span>{entry.era}</span>
+              </p>
             </div>
-            <p className="meta">
-              <span>{KIND_LABEL[entry.kind]}</span>
-              <span>Phase {entry.phase}</span>
-              <span>{releaseYear(entry.releaseDate)}</span>
-              <span>{entry.era}</span>
-            </p>
           </div>
         </article>
       </div>

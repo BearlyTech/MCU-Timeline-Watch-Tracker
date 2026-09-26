@@ -17,6 +17,7 @@ export interface CatalogEntry {
   era: string
   multiverse?: boolean
   upcoming?: boolean
+  poster?: string
 }
 
 export const KINDS: Kind[] = ['movie', 'series', 'special', 'one-shot']
