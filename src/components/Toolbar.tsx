@@ -41,17 +41,17 @@ export function Toolbar({
         >
           <button
             type="button"
-            aria-pressed={order === 'chrono'}
-            onClick={() => onOrder('chrono')}
-          >
-            Chronological
-          </button>
-          <button
-            type="button"
             aria-pressed={order === 'release'}
             onClick={() => onOrder('release')}
           >
             Release
+          </button>
+          <button
+            type="button"
+            aria-pressed={order === 'chrono'}
+            onClick={() => onOrder('chrono')}
+          >
+            Chronological
           </button>
         </div>
 
@@ -73,6 +73,7 @@ export function Toolbar({
               key={kind}
               type="button"
               className="chip"
+              data-kind={kind}
               aria-pressed={kinds.has(kind)}
               onClick={() => onToggleKind(kind)}
             >

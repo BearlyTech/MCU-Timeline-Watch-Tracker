@@ -10,6 +10,7 @@ type Row = {
   era: string
   multiverse?: boolean
   upcoming?: boolean
+  requires?: string[]
 }
 
 // Marvel Studios films, Disney+ seasons, Special Presentations, and One-Shots.
@@ -39,6 +40,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2013-09-24',
     era: '1946',
+    requires: ['captain-america-the-first-avenger'],
   },
   {
     id: 'the-fantastic-four-first-steps',
@@ -72,6 +74,7 @@ const rows: Row[] = [
     phase: 1,
     releaseDate: '2010-05-07',
     era: '2011',
+    requires: ['iron-man'],
   },
   {
     id: 'the-incredible-hulk',
@@ -88,6 +91,7 @@ const rows: Row[] = [
     phase: 1,
     releaseDate: '2011-10-25',
     era: '2011',
+    requires: ['thor'],
   },
   {
     id: 'thor',
@@ -104,6 +108,7 @@ const rows: Row[] = [
     phase: 1,
     releaseDate: '2011-09-13',
     era: '2011',
+    requires: ['iron-man-2', 'the-incredible-hulk'],
   },
   {
     id: 'the-avengers',
@@ -112,6 +117,13 @@ const rows: Row[] = [
     phase: 1,
     releaseDate: '2012-05-04',
     era: '2012',
+    requires: [
+      'iron-man',
+      'iron-man-2',
+      'the-incredible-hulk',
+      'thor',
+      'captain-america-the-first-avenger',
+    ],
   },
   {
     id: 'item-47',
@@ -120,6 +132,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2012-09-25',
     era: '2012',
+    requires: ['the-avengers'],
   },
   {
     id: 'thor-the-dark-world',
@@ -128,6 +141,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2013-11-08',
     era: '2013',
+    requires: ['thor'],
   },
   {
     id: 'iron-man-3',
@@ -136,6 +150,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2013-05-03',
     era: '2013',
+    requires: ['the-avengers'],
   },
   {
     id: 'all-hail-the-king',
@@ -144,6 +159,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2014-02-25',
     era: '2014',
+    requires: ['iron-man-3'],
   },
   {
     id: 'captain-america-the-winter-soldier',
@@ -152,6 +168,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2014-04-04',
     era: '2014',
+    requires: ['captain-america-the-first-avenger', 'the-avengers'],
   },
   {
     id: 'guardians-of-the-galaxy',
@@ -168,6 +185,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2017-05-05',
     era: '2014',
+    requires: ['guardians-of-the-galaxy'],
   },
   {
     id: 'i-am-groot',
@@ -176,6 +194,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2022-08-10',
     era: '2014',
+    requires: ['guardians-of-the-galaxy-vol-2'],
   },
   {
     id: 'avengers-age-of-ultron',
@@ -184,6 +203,7 @@ const rows: Row[] = [
     phase: 2,
     releaseDate: '2015-05-01',
     era: '2015',
+    requires: ['the-avengers'],
   },
   {
     id: 'ant-man',
@@ -200,6 +220,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2016-05-06',
     era: '2016',
+    requires: ['captain-america-the-winter-soldier', 'avengers-age-of-ultron'],
   },
   {
     id: 'your-friendly-neighborhood-spider-man-s1',
@@ -219,6 +240,7 @@ const rows: Row[] = [
     era: 'Alternate · Civil War',
     multiverse: true,
     upcoming: true,
+    requires: ['your-friendly-neighborhood-spider-man-s1'],
   },
   {
     id: 'black-widow',
@@ -227,6 +249,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2021-07-09',
     era: '2016',
+    requires: ['captain-america-civil-war'],
   },
   {
     id: 'black-panther',
@@ -235,6 +258,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2018-02-16',
     era: '2016',
+    requires: ['captain-america-civil-war'],
   },
   {
     id: 'spider-man-homecoming',
@@ -243,6 +267,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2017-07-07',
     era: '2016',
+    requires: ['the-avengers', 'captain-america-civil-war'],
   },
   {
     id: 'doctor-strange',
@@ -259,6 +284,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2017-11-03',
     era: '2017',
+    requires: ['thor-the-dark-world', 'avengers-age-of-ultron'],
   },
   {
     id: 'ant-man-and-the-wasp',
@@ -267,6 +293,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2018-07-06',
     era: '2018',
+    requires: ['ant-man', 'captain-america-civil-war'],
   },
   {
     id: 'avengers-infinity-war',
@@ -275,6 +302,14 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2018-04-27',
     era: '2018',
+    requires: [
+      'captain-america-civil-war',
+      'spider-man-homecoming',
+      'doctor-strange',
+      'thor-ragnarok',
+      'black-panther',
+      'guardians-of-the-galaxy-vol-2',
+    ],
   },
   {
     id: 'avengers-endgame',
@@ -283,6 +318,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2019-04-26',
     era: '2023',
+    requires: ['avengers-infinity-war', 'ant-man-and-the-wasp', 'captain-marvel'],
   },
   {
     id: 'loki-s1',
@@ -292,6 +328,7 @@ const rows: Row[] = [
     releaseDate: '2021-06-09',
     era: 'Outside time',
     multiverse: true,
+    requires: ['avengers-endgame'],
   },
   {
     id: 'what-if-s1',
@@ -310,6 +347,7 @@ const rows: Row[] = [
     releaseDate: '2025-09-24',
     era: '2023 · alternate',
     multiverse: true,
+    requires: ['what-if-s1'],
   },
   {
     id: 'wandavision',
@@ -318,6 +356,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2021-01-15',
     era: '2023',
+    requires: ['avengers-infinity-war', 'avengers-endgame'],
   },
   {
     id: 'shang-chi',
@@ -334,6 +373,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2021-03-19',
     era: '2024',
+    requires: ['captain-america-the-winter-soldier', 'avengers-endgame'],
   },
   {
     id: 'spider-man-far-from-home',
@@ -342,6 +382,7 @@ const rows: Row[] = [
     phase: 3,
     releaseDate: '2019-07-02',
     era: '2024',
+    requires: ['spider-man-homecoming', 'avengers-endgame'],
   },
   {
     id: 'eternals',
@@ -358,6 +399,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2021-12-17',
     era: '2024',
+    requires: ['spider-man-far-from-home', 'doctor-strange'],
   },
   {
     id: 'doctor-strange-multiverse-of-madness',
@@ -366,6 +408,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2022-05-06',
     era: '2024',
+    requires: ['doctor-strange', 'wandavision'],
   },
   {
     id: 'hawkeye',
@@ -374,6 +417,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2021-11-24',
     era: '2024',
+    requires: ['avengers-endgame', 'black-widow'],
   },
   {
     id: 'moon-knight',
@@ -390,6 +434,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2022-11-11',
     era: '2025',
+    requires: ['black-panther', 'avengers-endgame'],
   },
   {
     id: 'echo',
@@ -398,6 +443,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2024-01-09',
     era: '2025',
+    requires: ['hawkeye'],
   },
   {
     id: 'she-hulk',
@@ -422,6 +468,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2022-07-08',
     era: '2025',
+    requires: ['thor-ragnarok'],
   },
   {
     id: 'ironheart',
@@ -430,6 +477,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2025-06-24',
     era: '2025',
+    requires: ['black-panther-wakanda-forever'],
   },
   {
     id: 'werewolf-by-night',
@@ -446,6 +494,7 @@ const rows: Row[] = [
     phase: 4,
     releaseDate: '2022-11-25',
     era: '2025',
+    requires: ['guardians-of-the-galaxy-vol-2', 'avengers-endgame'],
   },
   {
     id: 'quantumania',
@@ -454,6 +503,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2023-02-17',
     era: '2026',
+    requires: ['ant-man-and-the-wasp'],
   },
   {
     id: 'guardians-of-the-galaxy-vol-3',
@@ -462,6 +512,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2023-05-05',
     era: '2026',
+    requires: ['guardians-of-the-galaxy-vol-2', 'avengers-endgame'],
   },
   {
     id: 'secret-invasion',
@@ -470,6 +521,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2023-06-21',
     era: '2026',
+    requires: ['captain-marvel'],
   },
   {
     id: 'the-marvels',
@@ -478,6 +530,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2023-11-10',
     era: '2026',
+    requires: ['captain-marvel', 'wandavision', 'ms-marvel'],
   },
   {
     id: 'loki-s2',
@@ -487,6 +540,7 @@ const rows: Row[] = [
     releaseDate: '2023-10-05',
     era: 'Outside time',
     multiverse: true,
+    requires: ['loki-s1'],
   },
   {
     id: 'what-if-s2',
@@ -496,6 +550,7 @@ const rows: Row[] = [
     releaseDate: '2023-12-22',
     era: 'Outside time',
     multiverse: true,
+    requires: ['what-if-s1'],
   },
   {
     id: 'deadpool-and-wolverine',
@@ -505,6 +560,7 @@ const rows: Row[] = [
     releaseDate: '2024-07-26',
     era: 'The Void',
     multiverse: true,
+    requires: ['loki-s2'],
   },
   {
     id: 'agatha-all-along',
@@ -513,6 +569,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2024-09-18',
     era: '2026',
+    requires: ['wandavision'],
   },
   {
     id: 'visionquest',
@@ -522,6 +579,7 @@ const rows: Row[] = [
     releaseDate: '2026-10-14',
     era: 'After WandaVision',
     upcoming: true,
+    requires: ['wandavision'],
   },
   {
     id: 'what-if-s3',
@@ -531,6 +589,7 @@ const rows: Row[] = [
     releaseDate: '2024-12-22',
     era: 'Outside time',
     multiverse: true,
+    requires: ['what-if-s2'],
   },
   {
     id: 'daredevil-born-again-s1',
@@ -539,6 +598,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2025-03-04',
     era: '2026–2027',
+    requires: ['echo'],
   },
   {
     id: 'captain-america-brave-new-world',
@@ -547,6 +607,7 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2025-02-14',
     era: '2027',
+    requires: ['the-falcon-and-the-winter-soldier', 'the-incredible-hulk'],
   },
   {
     id: 'thunderbolts',
@@ -555,6 +616,12 @@ const rows: Row[] = [
     phase: 5,
     releaseDate: '2025-05-02',
     era: '2027',
+    requires: [
+      'black-widow',
+      'the-falcon-and-the-winter-soldier',
+      'ant-man-and-the-wasp',
+      'captain-america-brave-new-world',
+    ],
   },
   {
     id: 'wonder-man',
@@ -563,6 +630,7 @@ const rows: Row[] = [
     phase: 6,
     releaseDate: '2026-01-27',
     era: '2025–2027',
+    requires: ['shang-chi'],
   },
   {
     id: 'daredevil-born-again-s2',
@@ -571,6 +639,7 @@ const rows: Row[] = [
     phase: 6,
     releaseDate: '2026-03-24',
     era: '2027',
+    requires: ['daredevil-born-again-s1'],
   },
   {
     id: 'the-punisher-one-last-kill',
@@ -579,6 +648,7 @@ const rows: Row[] = [
     phase: 6,
     releaseDate: '2026-05-12',
     era: '2027',
+    requires: ['daredevil-born-again-s2'],
   },
   {
     id: 'daredevil-born-again-s3',
@@ -588,6 +658,7 @@ const rows: Row[] = [
     releaseDate: '2027-03-01',
     era: '2028',
     upcoming: true,
+    requires: ['daredevil-born-again-s2'],
   },
   {
     id: 'spider-man-brand-new-day',
@@ -596,6 +667,7 @@ const rows: Row[] = [
     phase: 6,
     releaseDate: '2026-07-31',
     era: '2028',
+    requires: ['spider-man-no-way-home'],
   },
   {
     id: 'avengers-doomsday',
@@ -605,6 +677,12 @@ const rows: Row[] = [
     releaseDate: '2026-12-18',
     era: '2028',
     upcoming: true,
+    requires: [
+      'thunderbolts',
+      'the-fantastic-four-first-steps',
+      'captain-america-brave-new-world',
+      'loki-s2',
+    ],
   },
   {
     id: 'avengers-secret-wars',
@@ -614,6 +692,7 @@ const rows: Row[] = [
     releaseDate: '2027-12-17',
     era: 'After Doomsday',
     upcoming: true,
+    requires: ['avengers-doomsday'],
   },
 ]
 

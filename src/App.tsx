@@ -18,7 +18,7 @@ function sortEntries(
 
 export default function App() {
   const { watchedIds, toggle, reset } = useWatchlist()
-  const [order, setOrder] = useState<Order>('chrono')
+  const [order, setOrder] = useState<Order>('release')
   const [kinds, setKinds] = useState<Set<Kind>>(() => new Set(KINDS))
   const [query, setQuery] = useState('')
   const [showWatched, setShowWatched] = useState(false)
@@ -75,7 +75,7 @@ export default function App() {
         <p className="kicker">Marvel Studios · Phases 1–6</p>
         <h1>MCU Timeline</h1>
         <p className="lede">
-          Work through the saga in story order or release order. Check a title
+          Work through the saga in release order or story order. Check a title
           to take it off your watchlist. Progress stays in this browser.
         </p>
       </header>

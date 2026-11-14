@@ -1,21 +1,42 @@
 import { useState } from 'react'
+import { catalog } from '../data/catalog'
 import type { CatalogEntry } from '../types'
 import { KIND_LABEL, releaseYear } from '../types'
+
+const catalogById = new Map(catalog.map((item) => [item.id, item]))
+
+function requiredEntries(entry: CatalogEntry): CatalogEntry[] {
+  if (!entry.requires?.length) return []
+  return entry.requires
+    .flatMap((id) => {
+      const required = catalogById.get(id)
+      return required ? [required] : []
+    })
+    .sort((a, b) => a.releaseDate.localeCompare(b.releaseDate))
+}
+
+export type Spotlight = 'hit' | 'source' | 'dim' | null
 
 type TimelineItemProps = {
   entry: CatalogEntry
   checked: boolean
   pending: boolean
+  spotlight: Spotlight
   onToggle: (id: string) => void
+  onFocusRequired: () => void
 }
 
 export function TimelineItem({
   entry,
   checked,
   pending,
+  spotlight,
   onToggle,
+  onFocusRequired,
 }: TimelineItemProps) {
   const locked = entry.upcoming || pending
+  const required = requiredEntries(entry)
+  const spotlighting = spotlight === 'source'
   const [posterFailed, setPosterFailed] = useState(false)
   const showPoster = Boolean(entry.poster) && !posterFailed
   const action = checked
@@ -23,11 +44,20 @@ export function TimelineItem({
     : `Mark ${entry.title} watched`
 
   return (
-    <li className={pending ? 'entry is-leaving' : 'entry'}>
+    <li
+      className={[
+        'entry',
+        pending ? 'is-leaving' : '',
+        spotlight ? `is-${spotlight}` : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div className="entry-clip">
         <article
           className={checked && !pending ? 'card is-watched' : 'card'}
           data-phase={entry.phase}
+          data-kind={entry.kind}
           data-id={entry.id}
           data-upcoming={entry.upcoming ? 'true' : 'false'}
         >
@@ -90,11 +120,31 @@ export function TimelineItem({
                 </div>
               </div>
               <p className="meta">
-                <span>{KIND_LABEL[entry.kind]}</span>
+                <span className="kind" data-kind={entry.kind}>
+                  {KIND_LABEL[entry.kind]}
+                </span>
                 <span>Phase {entry.phase}</span>
                 <span>{releaseYear(entry.releaseDate)}</span>
                 <span>{entry.era}</span>
               </p>
+              {required.length > 0 && (
+                <p className="required">
+                  <button
+                    type="button"
+                    className="required-toggle"
+                    aria-pressed={spotlighting}
+                    aria-label={
+                      spotlighting
+                        ? `Hide titles required before ${entry.title}`
+                        : `Show titles required before ${entry.title}`
+                    }
+                    onClick={onFocusRequired}
+                  >
+                    Required:
+                  </button>
+                  {required.map((item) => item.title).join(', ')}
+                </p>
+              )}
             </div>
           </div>
         </article>
