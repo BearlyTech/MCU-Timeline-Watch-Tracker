@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { catalog } from '../data/catalog'
+import { details } from '../data/details'
+import { runtimeMeta } from '../data/runtime'
 import type { CatalogEntry } from '../types'
 import { KIND_LABEL, releaseYear } from '../types'
 
@@ -23,6 +25,7 @@ type TimelineItemProps = {
   pending: boolean
   spotlight: Spotlight
   onToggle: (id: string) => void
+  onOpen: (id: string) => void
   onFocusRequired: () => void
 }
 
@@ -32,10 +35,12 @@ export function TimelineItem({
   pending,
   spotlight,
   onToggle,
+  onOpen,
   onFocusRequired,
 }: TimelineItemProps) {
   const locked = entry.upcoming || pending
   const required = requiredEntries(entry)
+  const runtimes = runtimeMeta(details[entry.id])
   const spotlighting = spotlight === 'source'
   const [posterFailed, setPosterFailed] = useState(false)
   const showPoster = Boolean(entry.poster) && !posterFailed
@@ -112,21 +117,30 @@ export function TimelineItem({
           </button>
           <div className="card-main">
             <div className="card-body">
-              <div className="card-heading">
-                <h3>{entry.title}</h3>
-                <div className="badges">
-                  {entry.multiverse && <span className="badge">Multiverse</span>}
-                  {entry.upcoming && <span className="badge badge-upcoming">Upcoming</span>}
+              <button
+                type="button"
+                className="details-open"
+                onClick={() => onOpen(entry.id)}
+              >
+                <div className="card-heading">
+                  <h3>{entry.title}</h3>
+                  <div className="badges">
+                    {entry.multiverse && <span className="badge">Multiverse</span>}
+                    {entry.upcoming && <span className="badge badge-upcoming">Upcoming</span>}
+                  </div>
                 </div>
-              </div>
-              <p className="meta">
-                <span className="kind" data-kind={entry.kind}>
-                  {KIND_LABEL[entry.kind]}
-                </span>
-                <span>Phase {entry.phase}</span>
-                <span>{releaseYear(entry.releaseDate)}</span>
-                <span>{entry.era}</span>
-              </p>
+                <p className="meta">
+                  <span className="kind" data-kind={entry.kind}>
+                    {KIND_LABEL[entry.kind]}
+                  </span>
+                  <span>Phase {entry.phase}</span>
+                  <span>{releaseYear(entry.releaseDate)}</span>
+                  <span>{entry.era}</span>
+                  {runtimes.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </p>
+              </button>
               {required.length > 0 && (
                 <p className="required">
                   <button
