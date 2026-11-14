@@ -15,21 +15,28 @@ function requiredEntries(entry: CatalogEntry): CatalogEntry[] {
     .sort((a, b) => a.releaseDate.localeCompare(b.releaseDate))
 }
 
+export type Spotlight = 'hit' | 'source' | 'dim' | null
+
 type TimelineItemProps = {
   entry: CatalogEntry
   checked: boolean
   pending: boolean
+  spotlight: Spotlight
   onToggle: (id: string) => void
+  onFocusRequired: () => void
 }
 
 export function TimelineItem({
   entry,
   checked,
   pending,
+  spotlight,
   onToggle,
+  onFocusRequired,
 }: TimelineItemProps) {
   const locked = entry.upcoming || pending
   const required = requiredEntries(entry)
+  const spotlighting = spotlight === 'source'
   const [posterFailed, setPosterFailed] = useState(false)
   const showPoster = Boolean(entry.poster) && !posterFailed
   const action = checked
@@ -37,7 +44,15 @@ export function TimelineItem({
     : `Mark ${entry.title} watched`
 
   return (
-    <li className={pending ? 'entry is-leaving' : 'entry'}>
+    <li
+      className={[
+        'entry',
+        pending ? 'is-leaving' : '',
+        spotlight ? `is-${spotlight}` : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div className="entry-clip">
         <article
           className={checked && !pending ? 'card is-watched' : 'card'}
@@ -111,7 +126,19 @@ export function TimelineItem({
               </p>
               {required.length > 0 && (
                 <p className="required">
-                  <span>Required:</span>
+                  <button
+                    type="button"
+                    className="required-toggle"
+                    aria-pressed={spotlighting}
+                    aria-label={
+                      spotlighting
+                        ? `Hide titles required before ${entry.title}`
+                        : `Show titles required before ${entry.title}`
+                    }
+                    onClick={onFocusRequired}
+                  >
+                    Required:
+                  </button>
                   {required.map((item) => item.title).join(', ')}
                 </p>
               )}

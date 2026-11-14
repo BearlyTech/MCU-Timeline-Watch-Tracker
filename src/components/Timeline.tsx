@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CatalogEntry, Order } from '../types'
 import { SAGA_LABEL } from '../types'
-import { TimelineItem } from './TimelineItem'
+import { TimelineItem, type Spotlight } from './TimelineItem'
 
 type TimelineProps = {
   entries: CatalogEntry[]
@@ -23,6 +23,7 @@ export function Timeline({
   empty,
 }: TimelineProps) {
   const [leaving, setLeaving] = useState<Set<string>>(() => new Set())
+  const [focusId, setFocusId] = useState<string | null>(null)
   const leavingRef = useRef<Set<string>>(new Set())
   const timers = useRef<number[]>([])
 
@@ -32,6 +33,17 @@ export function Timeline({
       for (const timer of pending) window.clearTimeout(timer)
     }
   }, [])
+
+  useEffect(() => {
+    if (focusId && !entries.some((entry) => entry.id === focusId)) {
+      setFocusId(null)
+    }
+  }, [entries, focusId])
+
+  const focusRequires = useMemo(() => {
+    const entry = entries.find((item) => item.id === focusId)
+    return new Set(entry?.requires ?? [])
+  }, [entries, focusId])
 
   function handleToggle(id: string) {
     if (leavingRef.current.has(id)) return
@@ -56,6 +68,17 @@ export function Timeline({
       setLeaving(new Set(leavingRef.current))
     }, COLLAPSE_MS)
     timers.current.push(timer)
+  }
+
+  function handleFocus(id: string) {
+    setFocusId((current) => (current === id ? null : id))
+  }
+
+  function spotlightFor(entry: CatalogEntry): Spotlight {
+    if (!focusId) return null
+    if (entry.id === focusId) return 'source'
+    if (focusRequires.has(entry.id)) return 'hit'
+    return 'dim'
   }
 
   const sections = groupEntries(entries, order)
@@ -83,7 +106,9 @@ export function Timeline({
                     entry={entry}
                     checked={watchedIds.has(entry.id) || leaving.has(entry.id)}
                     pending={leaving.has(entry.id)}
+                    spotlight={spotlightFor(entry)}
                     onToggle={handleToggle}
+                    onFocusRequired={() => handleFocus(entry.id)}
                   />
                 ))}
               </ol>
