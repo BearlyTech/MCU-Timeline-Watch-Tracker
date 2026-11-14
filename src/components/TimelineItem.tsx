@@ -57,6 +57,7 @@ export function TimelineItem({
         <article
           className={checked && !pending ? 'card is-watched' : 'card'}
           data-phase={entry.phase}
+          data-kind={entry.kind}
           data-id={entry.id}
           data-upcoming={entry.upcoming ? 'true' : 'false'}
         >
@@ -119,7 +120,9 @@ export function TimelineItem({
                 </div>
               </div>
               <p className="meta">
-                <span>{KIND_LABEL[entry.kind]}</span>
+                <span className="kind" data-kind={entry.kind}>
+                  {KIND_LABEL[entry.kind]}
+                </span>
                 <span>Phase {entry.phase}</span>
                 <span>{releaseYear(entry.releaseDate)}</span>
                 <span>{entry.era}</span>

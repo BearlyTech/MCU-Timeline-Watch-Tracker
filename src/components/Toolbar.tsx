@@ -73,6 +73,7 @@ export function Toolbar({
               key={kind}
               type="button"
               className="chip"
+              data-kind={kind}
               aria-pressed={kinds.has(kind)}
               onClick={() => onToggleKind(kind)}
             >
