@@ -727,6 +727,191 @@ main {
     font-size: 0.88rem;
 }
 
+.details-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.details-open:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+.details-open:hover h3,
+.details-open:focus-visible h3 {
+    color: var(--gold);
+}
+
+.details-dialog {
+    display: none;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+}
+
+.details-dialog[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-dialog::backdrop {
+    background: rgba(5, 7, 12, 0.76);
+}
+
+.details-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(760px, 100%);
+    max-height: min(88svh, 920px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    background:
+        radial-gradient(420px 180px at 12% -10%, rgba(232, 200, 114, 0.14), transparent 70%),
+        var(--bg-raise);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.details-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    padding: 0.28rem 0.72rem;
+    border: 1px solid rgba(232, 200, 114, 0.45);
+    border-radius: 999px;
+    background: rgba(9, 11, 16, 0.78);
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.details-close:hover,
+.details-close:focus-visible {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--ink-on-gold);
+}
+
+.details-scroll {
+    overflow: auto;
+    padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.details-hero {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.details-poster {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    background: #1b202a;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.details-poster-fallback {
+    display: flex;
+    align-items: flex-end;
+    padding: 0.8rem;
+    background: linear-gradient(165deg, color-mix(in srgb, var(--gold) 55%, #2a2112), #171b24 70%);
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.details-copy h2 {
+    margin: 0.15rem 4.5rem 0 0;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.05;
+}
+
+.details-copy .badges {
+    margin-top: 0.7rem;
+}
+
+.details-synopsis {
+    margin: 0.9rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.5;
+}
+
+.episode-section {
+    margin-top: 1.5rem;
+}
+
+.episode-section h3 {
+    margin: 0 0 0.8rem;
+    font-size: 1.35rem;
+}
+
+.episode-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.card.episode-card {
+    width: auto;
+    margin: 0 0 0.75rem;
+    zoom: 1;
+}
+
+.episode-index {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--accent) 32%, #171b24);
+    color: var(--ink);
+    font-family: Fraunces, Georgia, serif;
+    font-size: 1.35rem;
+}
+
+.episode-card[data-kind="series"] .episode-index {
+    border-radius: 24px;
+}
+
+.episode-card h4 {
+    margin: 0;
+    font-family: Fraunces, Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 560;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+}
+
+.episode-synopsis {
+    margin: 0.4rem 0 0;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
 @media (max-width: 720px) {
     :root {
         --gutter: 42px;
@@ -750,6 +935,19 @@ main {
 
     .card {
         grid-template-columns: 3.4rem minmax(0, 1fr);
+    }
+
+    .details-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .details-poster {
+        width: min(220px, 70%);
+    }
+
+    .details-copy h2 {
+        margin-right: 0;
+        padding-right: 4.5rem;
     }
 }
 

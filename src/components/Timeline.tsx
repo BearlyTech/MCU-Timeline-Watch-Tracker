@@ -9,6 +9,7 @@ type TimelineProps = {
   watchedIds: ReadonlySet<string>
   showWatched: boolean
   onToggle: (id: string) => void
+  onOpen: (id: string) => void
   empty: 'filters' | 'caught-up' | null
 }
 
@@ -20,6 +21,7 @@ export function Timeline({
   watchedIds,
   showWatched,
   onToggle,
+  onOpen,
   empty,
 }: TimelineProps) {
   const [leaving, setLeaving] = useState<Set<string>>(() => new Set())
@@ -108,6 +110,7 @@ export function Timeline({
                     pending={leaving.has(entry.id)}
                     spotlight={spotlightFor(entry)}
                     onToggle={handleToggle}
+                    onOpen={onOpen}
                     onFocusRequired={() => handleFocus(entry.id)}
                   />
                 ))}

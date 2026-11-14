@@ -21,6 +21,18 @@ export interface CatalogEntry {
   requires?: string[]
 }
 
+export interface EpisodeDetail {
+  name: string
+  runtimeMinutes: number
+  synopsis: string
+}
+
+export interface TitleDetail {
+  synopsis?: string
+  runtimeMinutes?: number
+  episodes?: EpisodeDetail[]
+}
+
 export const KINDS: Kind[] = ['movie', 'series', 'special', 'one-shot']
 
 export const KIND_LABEL: Record<Kind, string> = {

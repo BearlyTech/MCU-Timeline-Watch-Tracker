@@ -3,6 +3,7 @@ import { catalog } from './data/catalog'
 import { useWatchlist } from './hooks/useWatchlist'
 import { Toolbar } from './components/Toolbar'
 import { Timeline } from './components/Timeline'
+import { TitleDialog } from './components/TitleDialog'
 import type { Kind, Order } from './types'
 import { KINDS } from './types'
 
@@ -22,6 +23,7 @@ export default function App() {
   const [kinds, setKinds] = useState<Set<Kind>>(() => new Set(KINDS))
   const [query, setQuery] = useState('')
   const [showWatched, setShowWatched] = useState(false)
+  const [openId, setOpenId] = useState<string | null>(null)
 
   const released = useMemo(
     () => catalog.filter((entry) => !entry.upcoming),
@@ -101,9 +103,15 @@ export default function App() {
           watchedIds={watchedIds}
           showWatched={showWatched}
           onToggle={toggle}
+          onOpen={setOpenId}
           empty={empty}
         />
       </main>
+
+      <TitleDialog
+        entry={catalog.find((item) => item.id === openId) ?? null}
+        onClose={() => setOpenId(null)}
+      />
 
       <footer className="colophon">
         Chronological order follows Marvel’s public timeline. Unreleased titles
