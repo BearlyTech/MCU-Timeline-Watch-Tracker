@@ -41,17 +41,17 @@ export function Toolbar({
         >
           <button
             type="button"
-            aria-pressed={order === 'chrono'}
-            onClick={() => onOrder('chrono')}
-          >
-            Chronological
-          </button>
-          <button
-            type="button"
             aria-pressed={order === 'release'}
             onClick={() => onOrder('release')}
           >
             Release
+          </button>
+          <button
+            type="button"
+            aria-pressed={order === 'chrono'}
+            onClick={() => onOrder('chrono')}
+          >
+            Chronological
           </button>
         </div>
 

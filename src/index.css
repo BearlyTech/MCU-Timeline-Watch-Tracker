@@ -552,6 +552,22 @@ main {
   color: #6d6456;
 }
 
+.required {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.required span {
+  margin-right: 0.35rem;
+  font-family: Outfit, 'Segoe UI', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .colophon {
   margin-top: 2.5rem;
   padding-left: 52px;

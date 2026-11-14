@@ -1,6 +1,19 @@
 import { useState } from 'react'
+import { catalog } from '../data/catalog'
 import type { CatalogEntry } from '../types'
 import { KIND_LABEL, releaseYear } from '../types'
+
+const catalogById = new Map(catalog.map((item) => [item.id, item]))
+
+function requiredEntries(entry: CatalogEntry): CatalogEntry[] {
+  if (!entry.requires?.length) return []
+  return entry.requires
+    .flatMap((id) => {
+      const required = catalogById.get(id)
+      return required ? [required] : []
+    })
+    .sort((a, b) => a.releaseDate.localeCompare(b.releaseDate))
+}
 
 type TimelineItemProps = {
   entry: CatalogEntry
@@ -16,6 +29,7 @@ export function TimelineItem({
   onToggle,
 }: TimelineItemProps) {
   const locked = entry.upcoming || pending
+  const required = requiredEntries(entry)
   const [posterFailed, setPosterFailed] = useState(false)
   const showPoster = Boolean(entry.poster) && !posterFailed
   const action = checked
@@ -95,6 +109,12 @@ export function TimelineItem({
                 <span>{releaseYear(entry.releaseDate)}</span>
                 <span>{entry.era}</span>
               </p>
+              {required.length > 0 && (
+                <p className="required">
+                  <span>Required:</span>
+                  {required.map((item) => item.title).join(', ')}
+                </p>
+              )}
             </div>
           </div>
         </article>
